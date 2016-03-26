@@ -47,4 +47,13 @@ class ApplicationTest < Minitest::Test
     assert_equal [reading_1, reading_2], lesson.readings
   end
 
+  def test_readings_are_destroyed_when_lesson_is_destroyed
+    lesson = Lesson.create(name: "How to JavaScript")
+    reading_1 = Reading.create(caption: "Chapter 3")
+    reading_2 = Reading.create(caption: "Chapter 4")
+    lesson.add_reading(reading_1)
+    lesson.add_reading(reading_2)
+    lesson.destroy
+    assert_equal [], lesson.readings
+  end
 end
