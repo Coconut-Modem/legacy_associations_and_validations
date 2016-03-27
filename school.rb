@@ -3,6 +3,7 @@ require 'active_record'
 
 class School < ActiveRecord::Base
   has_many :terms
+  validates :name, presence: true
 
 
 

@@ -56,4 +56,10 @@ class ApplicationTest < Minitest::Test
     school.add_term_to_school(term_two)
     assert_equal [term_one, term_two], school.terms
   end
+
+  def test_school_must_have_name
+    school = School.create()
+    assert_equal false, school.valid?
+  end
+
 end
