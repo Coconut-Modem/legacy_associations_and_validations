@@ -1,4 +1,7 @@
 class Course < ActiveRecord::Base
+  has_many :lessons, dependent: :destroy
+  has_many :readings, through: :lessons
+  has_one :course_instructor, dependent: :restrict_with_exception
 
   default_scope { order("courses.term_id DESC, courses.course_code, courses.id DESC") }
 
@@ -9,6 +12,10 @@ class Course < ActiveRecord::Base
 
   delegate :starts_on, to: :term, prefix: true
   delegate :ends_on, to: :term, prefix: true
+
+  def add_lesson(new_lesson)
+    self.lessons << new_lesson
+  end
 
   def self.example_courses
     self.where(public: true).order("id DESC").first(5)

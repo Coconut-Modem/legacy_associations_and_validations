@@ -21,8 +21,62 @@ ApplicationMigration.migrate(:up)
 # Finally!  Let's test the thing.
 class ApplicationTest < Minitest::Test
 
-  def test_truth
-    assert true
+  # def test_can_create_a_new_course
+  #   course = Course.create(name: "Coding 101")
+  #   assert Course
+  # end
+  #
+  # def test_course_id_exists
+  #   course = Course.create(name: "Coding 101")
+  #   assert_equal true, course.id?
+  # end
+  #
+  # def test_can_retrieve_course_name
+  #   course = Course.create(name: "Coding 101")
+  #   assert_equal "Coding 101", course.name
+  # end
+  #
+  # def test_course_can_have_many_lessons
+  #   course = Course.create(name: "Coding 101")
+  #   lesson_1 = Lesson.create(name: "How to Ruby")
+  #   lesson_2 = Lesson.create(name: "How to JavaScript")
+  #
+  #   course.add_lesson(lesson_1)
+  #   course.add_lesson(lesson_2)
+  #
+  #   assert_equal [lesson_1, lesson_2], course.lessons
+  # end
+  #
+  # def test_lessons_are_destroyed_when_course_is_destroyed
+  #   course = Course.create(name: "Coding 101")
+  #   lesson_1 = Lesson.create(name: "How to Ruby")
+  #   lesson_2 = Lesson.create(name: "How to JavaScript")
+  #   course.add_lesson(lesson_1)
+  #   course.add_lesson(lesson_2)
+  #   course.destroy
+  #   assert_equal [], course.lessons
+  # end
+
+  def test_course_can_have_many_readings_through_lessons
+    course = Course.create(name: "Coding 101")
+
+    lesson_1 = Lesson.create(name: "How to Ruby")
+    lesson_2 = Lesson.create(name: "How to JavaScript")
+
+    course.add_lesson(lesson_1)
+    course.add_lesson(lesson_2)
+
+    reading_1 = Reading.create(caption: "Chapter 1")
+    reading_2 = Reading.create(caption: "Chapter 2")
+    reading_3 = Reading.create(caption: "Chapter 3")
+    reading_4 = Reading.create(caption: "Chapter 4")
+
+    lesson_1.add_reading(reading_1)
+    lesson_1.add_reading(reading_2)
+    lesson_2.add_reading(reading_3)
+    lesson_2.add_reading(reading_4)
+    
+    assert_equal [reading_1, reading_2, reading_3, reading_4], course.readings
   end
 
 end
