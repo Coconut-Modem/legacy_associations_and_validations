@@ -59,14 +59,20 @@ class ApplicationTest < Minitest::Test
 
   def test_lesson_can_have_many_in_class_assignments
     lesson = Lesson.create(name: "How to Python")
-    assignment = Assignment.create(name: "Write a Program")
 
-  # --- FIX ---
-    # WORKS
-    lesson.add_in_class_assignment(assignment)
+    assignment_1 = Assignment.create(name: "Write a class", in_class_assignment: true)
+    assignment_2 = Assignment.create(name: "Write a method for a class", in_class_assignment: true)
 
-    # DOESNT WORK
-    # lesson.add_assignment(assignment)
-  # -----------
+    lesson.add_assignment(assignment_1)
+    lesson.add_assignment(assignment_2)
+
+    assert_equal [assignment_1, assignment_2], lesson.assignments
   end
+
+  def test_lesson_can_have_many_pre_class_assignments
+  end
+
+  def test_lesson_can_have_a_mix_of_assignment_types
+  end
+
 end
