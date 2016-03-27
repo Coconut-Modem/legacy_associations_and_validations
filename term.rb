@@ -4,7 +4,7 @@ require 'active_record'
 
 class Term < ActiveRecord::Base
   belongs_to :school
-
+  validates :name, :starts_on, :ends_on, :school_id, presence: true
 
   default_scope { order('ends_on DESC') }
 
