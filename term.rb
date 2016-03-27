@@ -1,4 +1,10 @@
+require 'active_record'
+
+
+
 class Term < ActiveRecord::Base
+  belongs_to :school
+
 
   default_scope { order('ends_on DESC') }
 
@@ -7,4 +13,5 @@ class Term < ActiveRecord::Base
   def school_name
     school ? school.name : "None"
   end
+
 end
