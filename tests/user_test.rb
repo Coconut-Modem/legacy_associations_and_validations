@@ -26,4 +26,11 @@ class ApplicationTest < Minitest::Test
     assert_equal true, user.valid?
   end
 
+  def test_validate_user_has_unique_email
+    user_1 = User.create(first_name: "Nadia", last_name: "Barbosa", email: "nb@gmail.com")
+    user_2 = User.create(first_name: "Aidan", last_name: "Barbosa", email: "nb@gmail.com")
+
+    assert_equal false, user_2.valid?
+  end
+
 end
