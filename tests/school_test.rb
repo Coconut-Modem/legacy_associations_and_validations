@@ -46,14 +46,14 @@ class ApplicationTest < Minitest::Test
     new_term = Term.create(name: "Fall Term")
     assert_equal "Fall Term", new_term.name
   end
-  # def test_school_can_have_many_terms
-  #   school = School.create(name: "The Iron Yard")
-  #   term_one = Term.create(name: "Fall Term")
-  #   term_two = Term.create(name: "Spring Term")
-  #
-  #   school.add_term_to_school(term_one)
-  #   school.add_term_to_school(term_two)
-  #
-  #   assert_equal [term_one, term_two], school.name
-  # end
+
+  def test_school_can_have_many_terms
+    school = School.create(name: "The Iron Yard")
+    term_one = Term.create(name: "Fall Term")
+    term_two = Term.create(name: "Spring Term")
+
+    school.add_term_to_school(term_one)
+    school.add_term_to_school(term_two)
+    assert_equal [term_one, term_two], school.terms
+  end
 end

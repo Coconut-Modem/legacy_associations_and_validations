@@ -13,9 +13,11 @@ class Lesson < ActiveRecord::Base
     self.readings << new_reading
   end
 
+# --- FIX ---
   def add_assignment(new_assignment)
     self.assignments << new_assignment
   end
+# -----------
 
   def add_in_class_assignment(assignment)
     self.update(:in_class_assignment_id => assignment.id)

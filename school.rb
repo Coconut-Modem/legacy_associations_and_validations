@@ -10,7 +10,7 @@ class School < ActiveRecord::Base
 
   default_scope { order('name') }
 
-  def add_term_to_school
+  def add_term_to_school(new_term)
     self.terms << new_term
   end
 
