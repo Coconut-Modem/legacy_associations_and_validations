@@ -29,14 +29,19 @@ class ApplicationTest < Minitest::Test
   def test_term_class_exists
     assert Term
   end
-  def test_new_term_can_be_created
-    fall_term = Term.create(name: "Fall Term")
-  end
 
   def test_term_has_an_id?
-    fall_term = Term.create(name: "Fall Term")
+    school = School.create(name: "The Iron Yard")
+    fall_term = Term.create(name: "Fall Term", starts_on: "2016-03-15 19:21:24 UTC", ends_on: "2016-05-31 19:21:24 UTC", school_id: 1)
+    school.add_term_to_school(fall_term)
     assert_equal true, fall_term.id?
   end
 
+  def test_term_must_have_name_start_date_end_date_and_school_id
+    school = School.create(name: "The Iron Yard")
+    term = Term.create(name: "Spring Term", starts_on: "2016-03-15 19:21:24 UTC", ends_on: "2016-05-31 19:21:24 UTC", school_id: 1)
+    school.add_term_to_school(term)
+    assert_equal true, term.valid?
+  end
 
 end

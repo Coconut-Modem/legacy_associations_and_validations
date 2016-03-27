@@ -21,8 +21,9 @@ ApplicationMigration.migrate(:up)
 # Finally!  Let's test the thing.
 class ApplicationTest < Minitest::Test
 
-  def test_truth
-    assert true
+  def test_user_must_be_created_with_firstname_lastname_email
+    user = User.create(first_name: "Nadia", last_name: "Barbosa", email: "nb@gmail.com")
+    assert_equal true, user.valid?
   end
 
 end
