@@ -22,7 +22,7 @@ ApplicationMigration.migrate(:up)
 class ApplicationTest < Minitest::Test
 
   def test_can_create_a_new_reading
-    lesson = Reading.create(caption: "Chapter 1")
+    reading = Reading.create(caption: "Chapter 1")
     assert Reading
   end
 
