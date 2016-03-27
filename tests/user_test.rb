@@ -32,5 +32,4 @@ class ApplicationTest < Minitest::Test
 
     assert_equal false, user_2.valid?
   end
-
 end
