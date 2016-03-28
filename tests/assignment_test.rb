@@ -43,4 +43,12 @@ class ApplicationTest < Minitest::Test
     assert_equal false, assignment_2.valid?
   end
 
+  def test_assignment_name_must_be_unique
+    course = Course.create(name: "Coding 101")
+    assignment_3 = Assignment.create(course_id: course.id, name: "Code stuff", percent_of_grade: 12.75)
+    assignment_4 = Assignment.create(course_id: course.id, name: "Code stuff", percent_of_grade: 15.32)
+
+    assert_equal false, assignment_4.valid?
+  end
+
 end
