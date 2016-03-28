@@ -1,5 +1,6 @@
 class Course < ActiveRecord::Base
   validates :course_code, presence: true
+  # validates :name, presence: true
   # belongs_to :term, dependent: :restrict_with_exception
   has_many :lessons, dependent: :destroy
   has_many :readings, through: :lessons
