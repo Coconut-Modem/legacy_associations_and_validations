@@ -1,6 +1,14 @@
 class User < ActiveRecord::Base
-  validates :email, uniqueness: true
+  # Email validates by matching the following in order:
+  #   • One or more of anything not an "@" symbol
+  #   • One "@" symbol,
+  #   • One or more of anything not an "@" symbol
+  #   • One "."
+  #   • Any word containing 2 or more characters
   validates :first_name, :last_name, :email, presence: true
+  validates :email, uniqueness: true
+  validates_format_of :email, :with => /\A[^@]+@[^@]+.\w{2,}\z/, :message => "Email is invalid"
+  validates_format_of :photo_url, :with => /\Ahttps?:\/\//, :message => "Photo URL is invalid", :allow_nil => true
 
 
   scope :want_to_be_instructors, -> { where(wants_to_be_instructor: true) }
