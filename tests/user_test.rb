@@ -22,21 +22,22 @@ ApplicationMigration.migrate(:up)
 class ApplicationTest < Minitest::Test
 
   def test_user_must_be_created_with_firstname_lastname_email
-    user = User.create(first_name: "Nadia", last_name: "Barbosa", email: "nb@gmail.com")
-    assert_equal true, user.valid?
+    user_1 = User.create(first_name: "Bob", last_name: "Person", email: "bob@aol.com")
+
+    assert_equal true, user_1.valid?
   end
 
   def test_validate_user_has_unique_email
-    user_1 = User.create(first_name: "Nadia", last_name: "Barbosa", email: "nb@gmail.com")
-    user_2 = User.create(first_name: "Aidan", last_name: "Barbosa", email: "nb@gmail.com")
+    user_2 = User.create(first_name: "Nadia", last_name: "Barbosa", email: "nadia@gmail.com")
+    user_3 = User.create(first_name: "Aidan", last_name: "Barbosa", email: "nadia@gmail.com")
 
-    assert_equal false, user_2.valid?
+    assert_equal false, user_3.valid?
   end
 
   def test_email_must_have_valid_format
-    user_1 = User.create(first_name: "Nadia", last_name: "Barbosa", email: "a@!jnd@@@")
-    user_2 = User.create(first_name: "Nadia", last_name: "Barbosa", email: "nadia@me.com")
-    assert_equal false, user_1.valid?
+    user_4 = User.create(first_name: "Peggy", last_name: "Carter", email: "a@!jnd@@@")
+
+    assert_equal false, user_4.valid?
   end
 
 end
