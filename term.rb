@@ -4,7 +4,9 @@ require 'active_record'
 
 class Term < ActiveRecord::Base
   belongs_to :school
-
+  has_many :courses, dependent: :restrict_with_exception
+  has_many :course_students, dependent: :restrict_with_exception
+  has_many :assignments, dependent: :destroy
 
   default_scope { order('ends_on DESC') }
 
@@ -14,4 +16,11 @@ class Term < ActiveRecord::Base
     school ? school.name : "None"
   end
 
+  def add_course(new_course)
+    self.courses << new_course
+  end
+
+  def add_assignment(new_assignment)
+    self.assignments << new_assignment
+  end
 end

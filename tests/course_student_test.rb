@@ -25,4 +25,13 @@ class ApplicationTest < Minitest::Test
     assert true
   end
 
+  def test_course_student_class_exists
+    assert CourseStudent
+  end
+
+  def test_course_student_has_id?
+    student = CourseStudent.create(student_id: 1)
+    assert_equal true, student.id?
+  end
+
 end

@@ -1,7 +1,11 @@
 class Lesson < ActiveRecord::Base
+  validates :name, presence: true
+
   has_many :readings, dependent: :destroy
   has_many :assignments, foreign_key: "in_class_assignment_id"
   belongs_to :course
+
+
 
   delegate :code_and_name, to: :course, prefix: true
 
@@ -13,9 +17,11 @@ class Lesson < ActiveRecord::Base
     self.readings << new_reading
   end
 
+# --- FIX ---
   def add_assignment(new_assignment)
     self.assignments << new_assignment
   end
+# -----------
 
   def add_in_class_assignment(assignment)
     self.update(:in_class_assignment_id => assignment.id)

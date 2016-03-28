@@ -1,4 +1,5 @@
 class CourseStudent < ActiveRecord::Base
+  belongs_to :course
 
   scope :approved, -> { where(approved: true) }
   scope :unapproved, -> { where(approved: false) }
@@ -6,7 +7,9 @@ class CourseStudent < ActiveRecord::Base
   delegate :code_and_name, :color, to: :course, prefix: true
   delegate :full_name, :first_name, :last_name, :email, to: :student
   delegate :grading_method, to: :course
+  def students
 
+  end
   def awarded_achievement_for(achievement)
     if achievement
       awarded_achievements.where(achievement_id: achievement.id).first

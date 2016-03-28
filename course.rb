@@ -1,8 +1,11 @@
 class Course < ActiveRecord::Base
+  validates :course_code, presence: true
+  # belongs_to :term, dependent: :restrict_with_exception
   has_many :lessons, dependent: :destroy
   has_many :readings, through: :lessons
   has_one :course_instructor, dependent: :restrict_with_exception
-
+  # has_many :course_students, through: student_id dependent: :restrict_with_exception
+  has_many :assignments, dependent: :destroy
   default_scope { order("courses.term_id DESC, courses.course_code, courses.id DESC") }
 
   # Magic number also used in old? method below.
@@ -15,6 +18,10 @@ class Course < ActiveRecord::Base
 
   def add_lesson(new_lesson)
     self.lessons << new_lesson
+  end
+
+  def add_student(new_student)
+    self.course_student << new_student
   end
 
   def self.example_courses
