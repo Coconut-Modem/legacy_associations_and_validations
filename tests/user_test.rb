@@ -33,4 +33,10 @@ class ApplicationTest < Minitest::Test
     assert_equal false, user_2.valid?
   end
 
+  def test_email_must_have_valid_format
+    user_1 = User.create(first_name: "Nadia", last_name: "Barbosa", email: "a@!jnd@@@")
+    user_2 = User.create(first_name: "Nadia", last_name: "Barbosa", email: "nadia@me.com")
+    assert_equal false, user_1.valid?
+  end
+
 end
