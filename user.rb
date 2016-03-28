@@ -5,9 +5,10 @@ class User < ActiveRecord::Base
   #   • One or more of anything not an "@" symbol
   #   • One "."
   #   • Any word containing 2 or more characters
+  validates :first_name, :last_name, :email, presence: true
   validates :email, uniqueness: true
   validates_format_of :email, :with => /\A[^@]+@[^@]+.\w{2,}\z/, :message => "Email is invalid"
-  validates :first_name, :last_name, :email, presence: true
+  validates_format_of :photo_url, :with => /\Ahttps?:\/\//, :message => "Photo URL is invalid", :allow_nil => true
 
   scope :want_to_be_instructors, -> { where(wants_to_be_instructor: true) }
   scope :instructors_for_school_id, ->(school_id) { where(school_id: school_id, instructor: true) }
