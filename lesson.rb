@@ -1,5 +1,5 @@
 class Lesson < ActiveRecord::Base
-  has_many :assignments
+  has_many :in_class_assignments, class_name: "Lesson"
   has_many :readings, dependent: :destroy
   belongs_to :course
 
