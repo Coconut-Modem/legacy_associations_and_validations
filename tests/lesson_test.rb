@@ -49,30 +49,20 @@ class ApplicationTest < Minitest::Test
 
   def test_readings_are_destroyed_when_lesson_is_destroyed
     lesson = Lesson.create(name: "How to JavaScript")
-    reading_1 = Reading.create(caption: "Chapter 3")
-    reading_2 = Reading.create(caption: "Chapter 4")
-    lesson.add_reading(reading_1)
-    lesson.add_reading(reading_2)
+    reading_3 = Reading.create(caption: "Chapter 3")
+    reading_4 = Reading.create(caption: "Chapter 4")
+    lesson.add_reading(reading_3)
+    lesson.add_reading(reading_4)
     lesson.destroy
     assert_equal [], lesson.readings
   end
 
-  def test_lesson_can_have_many_in_class_assignments
-    lesson = Lesson.create(name: "How to Python")
+  def test_lesson_can_have_in_class_assignment
+    course = Course.create(name: "Mobile Apps")
+    assignment = Assignment.create(course_id: course.id, name: "Download Xcode", percent_of_grade: 12.75)
+    lesson = Lesson.create(name: "How to Swift", in_class_assignment_id: assignment.id)
 
-    assignment_1 = Assignment.create(name: "Write a class", in_class_assignment: true)
-    assignment_2 = Assignment.create(name: "Write a method for a class", in_class_assignment: true)
-
-    lesson.add_assignment(assignment_1)
-    lesson.add_assignment(assignment_2)
-
-    assert_equal [assignment_1, assignment_2], lesson.assignments
-  end
-
-  def test_lesson_can_have_many_pre_class_assignments
-  end
-
-  def test_lesson_can_have_a_mix_of_assignment_types
+    assert_equal assignment.id, lesson.in_class_assignment_id
   end
 
 end
