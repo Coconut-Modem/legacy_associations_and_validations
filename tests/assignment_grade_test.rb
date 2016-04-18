@@ -25,4 +25,4 @@ class ApplicationTest < Minitest::Test
     assert true
   end
 
-end o
+end
