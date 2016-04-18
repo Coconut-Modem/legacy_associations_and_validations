@@ -1,5 +1,6 @@
 class Reading < ActiveRecord::Base
   belongs_to :lesson
+  validates_format_of :url, :with => /\Ahttps?:\/\//, :message => "URL is invalid", :allow_nil => true
 
   default_scope { order('order_number') }
 
