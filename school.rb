@@ -3,6 +3,7 @@ require 'active_record'
 
 class School < ActiveRecord::Base
   has_many :terms, dependent: :destroy
+  validates :name, presence: true
 
 
   # has_many :courses, :through => :terms

@@ -29,6 +29,9 @@ class ApplicationMigration < ActiveRecord::Migration
     create_table "assignments", force: true do |t|
       t.string   "name"
       t.integer  "course_id"
+      t.integer  "lesson_id"
+      t.boolean "in_class_assignment"
+      t.boolean  "pre_class_assignment"
       t.datetime "active_at"
       t.datetime "due_at"
       t.boolean  "grades_released"
@@ -91,8 +94,7 @@ class ApplicationMigration < ActiveRecord::Migration
       t.text     "lead_in_question"
       t.datetime "created_at"
       t.datetime "updated_at"
-      t.integer  "pre_class_assignment_id"
-      t.integer  "in_class_assignment_id"
+      t.integer  "assignment_id"
       t.text     "slide_html"
     end
 

@@ -80,21 +80,21 @@ class ApplicationTest < Minitest::Test
   end
 
     def test_term_cannot_be_deleted_with_courses
-      term = Term.create
-      course = Course.create(name: "Ruby on Rails")
+      term = Term.create!(name: "Spring", starts_on: )
+      course = Course.create!(name: "Ruby on Rails")
       term.add_course(course)
       assert_raises (ActiveRecord::DeleteRestrictionError) {term.destroy}
     end
 
     def test_term_cannot_be_deleted_with_students
-      term = Term.create
+      term = Term.create!
       course_student = CourseStudent.create(student_id: 1)
       term.add_student(course_student)
       assert_raises (ActiveRecord::DeleteRestrictionError) {term.destroy}
     end
 
     def test_assignments_are_destroyed_when_course_is_destroyed
-      course = Course.create(name: "Ruby for Dummies")
+      course = Course.create!(name: "Ruby for Dummies")
       assignment_one = Assignment.create(name: "Section 1")
       assignment_two = Assignment.create(name: "Section 2")
       course.add_assignment(assignment_one)

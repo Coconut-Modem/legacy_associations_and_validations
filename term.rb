@@ -7,6 +7,8 @@ class Term < ActiveRecord::Base
   has_many :courses, dependent: :restrict_with_exception
   has_many :course_students, dependent: :restrict_with_exception
   has_many :assignments, dependent: :destroy
+  validates :name, :starts_on, :ends_on, :school_id, presence: true
+
 
   default_scope { order('ends_on DESC') }
 
