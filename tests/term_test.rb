@@ -30,6 +30,14 @@ class ApplicationTest < Minitest::Test
     assert Term
   end
 
+  def test_cannot_destroy_term_if_courses_exist
+    fall_term = Term.create(name: "Fall Term", starts_on: "2016-03-15 19:21:24 UTC", ends_on: "2016-05-31 19:21:24 UTC", school_id: 1)
+    course_one = Course.create(name: "Coding 101")
+    fall_term.course_to_term(course_one)
+    assert_raises(ActiveRecord::DeleteRestrictionError) {fall_term.destroy}
+  end
+
+
   def test_term_has_an_id?
     school = School.create(name: "The Iron Yard")
     fall_term = Term.create(name: "Fall Term", starts_on: "2016-03-15 19:21:24 UTC", ends_on: "2016-05-31 19:21:24 UTC", school_id: 1)

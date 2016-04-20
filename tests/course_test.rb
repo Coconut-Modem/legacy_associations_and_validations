@@ -47,6 +47,21 @@ class ApplicationTest < Minitest::Test
     assert_equal [lesson_1, lesson_2], course.lessons
   end
 
+  def test_course_cannot_be_destroyed_with_students
+    course = Course.create(name: "Coding 101")
+    student_one = CourseStudent.create(full_name: "Harry Potter")
+    course.add_student(student_one)
+    assert_raises(ActiveRecord::DeleteRestrictionError) {fall_term.destroy}
+  end
+
+  def test_assignments_are_destroyed_when_course_is_destroyed
+    course = Course.create(name: "Coding 101")
+    assignment_one = Assignment.create(name: "First Assignment")
+    course.add_assignment(assignment_one)
+    course.destroy
+    assert_equal [], course.assignments
+  end
+
   def test_lessons_are_destroyed_when_course_is_destroyed
     course = Course.create(name: "Coding 101")
     lesson_1 = Lesson.create(name: "How to Ruby")
@@ -77,6 +92,13 @@ class ApplicationTest < Minitest::Test
     lesson_2.add_reading(reading_4)
 
     assert_equal [reading_1, reading_2, reading_3, reading_4], course.readings
+  end
+
+  def test_course_code_is_unique
+    Term.create(name: "Fall Term", starts_on: "2016-03-15 19:21:24 UTC", ends_on: "2016-05-31 19:21:24 UTC", school_id: 1)
+    course_one = Course.create(name: "Defense against the Dark Arts")
+    course_two = Course.create(name: "Quidditch 101" )
+    refute_equal course_one, course_two
   end
 
 end

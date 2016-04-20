@@ -1,5 +1,6 @@
 class Assignment < ActiveRecord::Base
   belongs_to :lesson
+  belongs_to :course
 
   validates :course_id, :name, :percent_of_grade, presence: true
   validates :name, uniqueness: true

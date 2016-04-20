@@ -47,6 +47,24 @@ class ApplicationTest < Minitest::Test
     assert_equal "Fall Term", new_term.name
   end
 
+  def test_school_has_many_courses_through_terms
+    school = School.create(name: "TIYDC")
+
+    term_one = Term.create(name: "Fall Term")
+    term_two = Term.create(name: "Spring Term")
+
+    school.add_term_to_school(term_one)
+    school.add_term_to_school(term_two)
+
+    course_one = Course.create(name: "Defense against the Dark Arts")
+    course_two = Course.create(name: "Quidditch 101" )
+
+    term_one.course_to_term(course_one)
+    term_two.course_to_term(course_two)
+    
+    assert_equal [term_one, term_two], school.terms
+  end
+
   def test_school_can_have_many_terms
     school = School.create(name: "The Iron Yard")
     term_one = Term.create(name: "Fall Term")

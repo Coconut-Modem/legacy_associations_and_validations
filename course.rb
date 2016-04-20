@@ -1,7 +1,12 @@
 class Course < ActiveRecord::Base
   has_many :lessons, dependent: :destroy
   has_many :readings, through: :lessons
+  has_many :course_students, dependent: :restrict_with_exception
+  has_many :assignments, dependent: :destroy
   has_one :course_instructor, dependent: :restrict_with_exception
+  belongs_to :term
+  # validates :name, :course_code, presence: true
+  # validates :course_code, uniqueness: true
 
   default_scope { order("courses.term_id DESC, courses.course_code, courses.id DESC") }
 
@@ -15,6 +20,14 @@ class Course < ActiveRecord::Base
 
   def add_lesson(new_lesson)
     self.lessons << new_lesson
+  end
+
+  def add_student(new_student)
+    self.courses << new_student
+  end
+
+  def add_assignment(new_assignment)
+    self.assignments << new_assignment
   end
 
   def self.example_courses

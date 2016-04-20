@@ -1,8 +1,9 @@
 class Lesson < ActiveRecord::Base
   has_many :in_class_assignments, class_name: "Lesson"
   has_many :readings, dependent: :destroy
+  # has_many :pre_class_assignments
   belongs_to :course
-
+  validates :name, presence: true
   delegate :code_and_name, to: :course, prefix: true
 
   scope :roots, -> { where("parent_lesson_id IS NULL") }
