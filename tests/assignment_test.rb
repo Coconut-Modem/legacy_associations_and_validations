@@ -22,9 +22,9 @@ ApplicationMigration.migrate(:up)
 class ApplicationTest < Minitest::Test
 
   def test_assignments_must_have_course_id_name_and_percent_of_grade
-    course = Course.create(name: "Coding 101")
-    assignment_1 = Assignment.create(course_id: course.id, name: "Write stuff", percent_of_grade: 10.25)
-    assignment_2 = Assignment.create()
+    course_one = Course.create(name: "Coding 101")
+    assignment_1 = Assignment.create(course_id: 1, name: "Learn stuff", percent_of_grade: 10.25)
+    assignment_2 = Assignment.create(course_id: course_one.id, percent_of_grade: 10.00)
 
     assert_equal true, assignment_1.valid?
     assert_equal false, assignment_2.valid?
@@ -32,7 +32,7 @@ class ApplicationTest < Minitest::Test
 
   def test_assignment_name_must_be_unique
     course = Course.create(name: "Coding 101")
-    assignment_3 = Assignment.create(course_id: course.id, name: "Code stuff", percent_of_grade: 12.75)
+    assignment_3 = Assignment.create(course_id: course.id, name: "Code things", percent_of_grade: 12.75)
     assignment_4 = Assignment.create(course_id: course.id, name: "Code stuff", percent_of_grade: 15.32)
 
     assert_equal false, assignment_4.valid?
