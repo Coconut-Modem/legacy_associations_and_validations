@@ -101,4 +101,12 @@ class ApplicationTest < Minitest::Test
     refute_equal course_one, course_two
   end
 
+  def test_course_code_is_3_letters_and_numbers
+    course_one = Course.create(name: "Coding 201", course_code: "BAC123")
+    course_two = Course.create(name: "Coding 301", course_code: "232BNB")
+
+    assert_equal true, course_one.valid?
+    refute_equal true, course_two.valid?
+  end
+
 end

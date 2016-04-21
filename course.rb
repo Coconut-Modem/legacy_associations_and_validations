@@ -7,6 +7,7 @@ class Course < ActiveRecord::Base
   belongs_to :term
   validates :name, presence: true
   validates :course_code, uniqueness: true
+  validates_format_of :course_code, :with => /[a-zA-Z]{3}[0-9]{3}/
 
   default_scope { order("courses.term_id DESC, courses.course_code, courses.id DESC") }
 
