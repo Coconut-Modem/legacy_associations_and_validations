@@ -23,7 +23,7 @@ class Course < ActiveRecord::Base
   end
 
   def add_student(new_student)
-    self.courses << new_student
+    self.course_students << new_student
   end
 
   def add_assignment(new_assignment)

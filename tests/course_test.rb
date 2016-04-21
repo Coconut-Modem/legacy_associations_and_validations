@@ -48,10 +48,10 @@ class ApplicationTest < Minitest::Test
   end
 
   def test_course_cannot_be_destroyed_with_students
-    course = Course.create(name: "Coding 101")
-    student_one = CourseStudent.create(full_name: "Harry Potter")
-    course.add_student(student_one)
-    assert_raises(ActiveRecord::DeleteRestrictionError) {fall_term.destroy}
+    course_one = Course.create(name: "Coding 101")
+    student_one = CourseStudent.create(student_id: 1, course_id: 2, final_grade: 90, approved: true )
+    course_one.add_student(student_one)
+    assert_raises(ActiveRecord::DeleteRestrictionError) {course_one.destroy}
   end
 
   def test_assignments_are_destroyed_when_course_is_destroyed

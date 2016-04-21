@@ -61,7 +61,7 @@ class ApplicationTest < Minitest::Test
 
     term_one.course_to_term(course_one)
     term_two.course_to_term(course_two)
-    
+
     assert_equal [term_one, term_two], school.terms
   end
 
