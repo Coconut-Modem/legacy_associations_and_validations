@@ -57,6 +57,14 @@ class ApplicationTest < Minitest::Test
     assert_equal [], lesson.readings
   end
 
+  def test_lesson_can_have_pre_class_assignment
+    course = Course.create(name: "Mobile Apps")
+    assignment = Assignment.create(course_id: course.id, name: "Download Xcode", percent_of_grade: 12.75)
+    lesson = Lesson.create(name: "How to Swift", pre_class_assignment_id: assignment.id)
+
+    assert_equal assignment.id, lesson.pre_class_assignment_id
+  end
+
   def test_lesson_can_have_in_class_assignment
     course = Course.create(name: "Mobile Apps")
     assignment = Assignment.create(course_id: course.id, name: "Download Xcode", percent_of_grade: 12.75)

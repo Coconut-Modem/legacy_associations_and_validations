@@ -27,7 +27,7 @@ class ApplicationTest < Minitest::Test
   end
 
   def test_course_id_exists
-    course = Course.create(name: "Coding 101")
+    course = Course.create(name: "Coding 101", course_code: "ABC123")
     assert_equal true, course.id?
   end
 
@@ -73,7 +73,7 @@ class ApplicationTest < Minitest::Test
   end
 
   def test_course_can_have_many_readings_through_lessons
-    course = Course.create(name: "Coding 101")
+    course = Course.create(name: "Coding 101", course_code: "BBB123")
 
     lesson_1 = Lesson.create(name: "How to Ruby")
     lesson_2 = Lesson.create(name: "How to JavaScript")
@@ -81,10 +81,10 @@ class ApplicationTest < Minitest::Test
     course.add_lesson(lesson_1)
     course.add_lesson(lesson_2)
 
-    reading_1 = Reading.create(caption: "Chapter 1")
-    reading_2 = Reading.create(caption: "Chapter 2")
-    reading_3 = Reading.create(caption: "Chapter 3")
-    reading_4 = Reading.create(caption: "Chapter 4")
+    reading_1 = Reading.create(order_number: 1, lesson_id: lesson_1.id, url: "http://www.google.com")
+    reading_2 = Reading.create(order_number: 2, lesson_id: lesson_1.id, url: "http://www.google.com")
+    reading_3 = Reading.create(order_number: 3, lesson_id: lesson_2.id, url: "http://www.google.com")
+    reading_4 = Reading.create(order_number: 4, lesson_id: lesson_2.id, url: "http://www.google.com")
 
     lesson_1.add_reading(reading_1)
     lesson_1.add_reading(reading_2)

@@ -5,8 +5,8 @@ class Course < ActiveRecord::Base
   has_many :assignments, dependent: :destroy
   has_one :course_instructor, dependent: :restrict_with_exception
   belongs_to :term
-  # validates :name, :course_code, presence: true
-  # validates :course_code, uniqueness: true
+  validates :name, presence: true
+  validates :course_code, uniqueness: true
 
   default_scope { order("courses.term_id DESC, courses.course_code, courses.id DESC") }
 

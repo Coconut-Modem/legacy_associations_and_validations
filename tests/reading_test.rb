@@ -27,13 +27,32 @@ class ApplicationTest < Minitest::Test
   end
 
   def test_reading_id_exists
-    reading = Reading.create(caption: "Chapter 1")
+    lesson = Lesson.create(name: "Ruby")
+    reading = Reading.create(order_number: 1, lesson_id: lesson.id, url: "http://www.google.com")
     assert_equal true, reading.id?
   end
 
   def test_can_retrieve_lesson_caption
     reading = Reading.create(caption: "Chapter 1")
     assert_equal "Chapter 1", reading.caption
+  end
+
+  def test_reading_must_have_order_number_lesson_id_and_url
+    lesson =  Lesson.create(name: "Ruby")
+    reading_one = Reading.create(order_number: 1, lesson_id: lesson.id, url: "http://www.google.com")
+    reading_two = Reading.create(order_number: 2, lesson_id: lesson.id)
+
+    assert_equal false, reading_two.valid?
+    assert_equal true, reading_one.valid?
+  end
+
+  def test_reading_has_correct_syntax
+    lesson =  Lesson.create(name: "Ruby")
+    reading_one = Reading.create(order_number: 1, lesson_id: lesson.id, url: "http://www.google.com")
+    reading_two = Reading.create(order_number: 2, lesson_id: lesson.id, url: "smtp://www.google.com")
+
+    assert_equal true, reading_one.valid?
+    assert_equal false, reading_two.valid?
   end
 
 end
