@@ -108,5 +108,4 @@ class ApplicationTest < Minitest::Test
     assert_equal true, course_one.valid?
     refute_equal true, course_two.valid?
   end
-
 end
