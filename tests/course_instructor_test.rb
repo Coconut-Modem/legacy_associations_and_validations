@@ -39,10 +39,9 @@ class ApplicationTest < Minitest::Test
   end
 
   def test_course_not_destroyable_if_instructor_exists
-    instructor = CourseInstructor.create
     course = Course.create(name: "Coding 101")
-    instructor.add_course(course)
-    assert_raises(ActiveRecord::DeleteRestrictionError) {course.destroy}
+    instructor = CourseInstructor.create!
+    course.course_instructor = instructor
+    assert_raises(ActiveRecord::DeleteRestrictionError) { course.destroy }
   end
-
 end
